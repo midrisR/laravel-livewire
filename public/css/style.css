@@ -1,0 +1,8 @@
+.modal {
+    transition: ease-in-out 12ms;
+}
+
+body.modal-active {
+    overflow-x: hidden;
+    overflow-y: visible !important;
+}

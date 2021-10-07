@@ -11,8 +11,8 @@ class Categories extends Component
 {
     use WithPagination;
     use WithFileUploads;
-    public $search, $name, $description, $image, $status ,$catId;
-    public $isOpen , $openSelect , $confirmingItemDeletion, $delete = false;
+    public $search, $name, $description, $image, $status ,$catIdm, $type;
+    public $isOpen , $openSelect , $confirmDetele, $confirmEdit, $delete = false;
     protected $listeners = ['confirmDelete'];
     protected $rules = [
         'name' => 'required',
@@ -24,11 +24,12 @@ class Categories extends Component
     public function handleModal ()
     {
         $this->isOpen = true;
+        $this->type= "ADD";
     }
     
     public function closeModal ()
     {
-        $this->reset(['name','status','image']);
+        $this->reset(['name','status','image','type']);
         $this->isOpen = false;
         $this->resetErrorBag();
         $this->resetValidation();
@@ -54,28 +55,43 @@ class Categories extends Component
         $this->reset();
         session()->flash('message', 'Product successfully created.');
     }
-    
-    public function view($id){
-        $cat = Categorie::find($id);
-         $this->name = $cat->name;
-         $this->description = $cat->description;
-         $this->image = $cat->image;
-         $this->status = $cat->status;
-         $this->handleModal();
+
+
+    public function confirmCategorieEdit( $id) 
+    {
+        $this->confirmEdit = $id;
+        $cat  =  Categorie::find($id);
+        $this->name = $cat->name;
+        $this->description = $cat->description;
+        $this->image = $cat->image;
+        $this->status = $cat->status;
+        $this->type = "UPDATE";
     }
 
+    public function edit (Categorie $categorie)
+    {
+        $categorie->name = $this->name;
+        $categorie->description = $this->description;
+        $categorie->status = $this->status;
+        $categorie->save();
+        $this->confirmEdit = false;
+    }
+
+
+    
+
+    public function confirmCategorieDeletion( $id) 
+    {
+        $this->confirmDetele = $id;
+    }
 
     public function destroy( Categorie $categorie) 
     {
         $categorie->delete();
-        $this->confirmingItemDeletion = false;
+        $this->confirmDetele = false;
         session()->flash('message', 'Item Deleted Successfully');
     }
 
-    public function confirmItemDeletion( $id) 
-    {
-        $this->confirmingItemDeletion = $id;
-    }
 
 
     public function render()

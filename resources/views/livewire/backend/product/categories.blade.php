@@ -86,12 +86,12 @@
                                     <td class="py-4 whitespace-nowrap flex">
                                         <button
                                             class="bg-green-200 rounded w-8 h-8 text-green-700 inline-flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-green-600 mr-5"
-                                            wire:click="view({{ $categorie->id }})">
+                                            wire:click="confirmCategorieEdit({{ $categorie->id }})">
                                             <x-feathericon-edit width="18" />
                                         </button>
                                         <button
                                             class="bg-red-200 rounded w-8 h-8 text-red-700 inline-flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-red-600"
-                                            wire:click="confirmItemDeletion( {{ $categorie->id }})"
+                                            wire:click="confirmCategorieDeletion({{ $categorie->id }})"
                                             wire:loading.attr="disabled">
                                             <x-feathericon-trash width="18" />
                                         </button>
@@ -109,8 +109,8 @@
         </div>
     </div>
 
-
-    <x-jet-confirmation-modal wire:model="confirmingItemDeletion">
+    {{-- Modal Delete --}}
+    <x-jet-confirmation-modal wire:model="confirmDetele">
         <x-slot name="title">
             {{ __('Delete Item') }}
         </x-slot>
@@ -120,13 +120,12 @@
         </x-slot>
 
         <x-slot name="footer">
-            <x-jet-secondary-button
-                wire:click="$set('confirmingItemDeletion', false)"
+            <x-jet-secondary-button wire:click="$set('confirmDetele', false)"
                 wire:loading.attr="disabled">
                 {{ __('Cencel') }}
             </x-jet-secondary-button>
             <x-jet-danger-button class="ml-2"
-                wire:click="destroy({{ $confirmingItemDeletion }})"
+                wire:click="destroy({{ $confirmDetele }})"
                 wire:loading.attr="disabled">
                 {{ __('Delete') }}
             </x-jet-danger-button>
@@ -134,7 +133,40 @@
     </x-jet-confirmation-modal>
 
     {{-- MODAL EDIT --}}
-    @if ($isOpen)
+    <x-jet-modal wire:model="confirmEdit" maxWidth="lg">
+        <x-slot name="slot">
+            <form class="w-1/2">
+                <x-input model="name" name="Name" />
+                <x-input model="description" name="Description" />
+                <x-select value="{{ $status }}" model="status"
+                    name="Status" open="{{ $openSelect }}" />
+                <x-upload name="Image" model="image" />
+
+            </form>
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-jet-secondary-button wire:click="$set('confirmEdit', false)"
+                wire:loading.attr="disabled">
+                {{ __('Cencel') }}
+            </x-jet-secondary-button>
+            <x-jet-danger-button class="ml-2"
+                wire:click="edit({{ $confirmEdit }})"
+                wire:loading.attr="disabled">
+                {{ __('UPDATE') }}
+            </x-jet-danger-button>
+        </x-slot>
+    </x-jet-modal>
+
+
+
+
+
+
+
+
+
+    {{-- @if ($isOpen)
         <x-customised-modal>
             <x-slot name="content">
                 <form>
@@ -150,7 +182,7 @@
                 </form>
             </x-slot>
         </x-customised-modal>
-    @endif
+    @endif --}}
 </div>
 
 @push('script')

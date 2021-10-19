@@ -12,6 +12,7 @@
         <input type="file" class="h-full w-full opacity-0"
             name="{{ $name }}" wire:model="{{ $model }}">
     </div>
+
     @error($model)
         <span class="error text-sm italic text-red-500">{{ $message }}</span>
     @enderror

@@ -12,28 +12,13 @@ class Categories extends Component
     use WithPagination;
     use WithFileUploads;
     public $search, $name, $description, $image, $status ,$catIdm, $type;
-    public $isOpen , $openSelect , $confirmDetele, $confirmEdit, $delete = false;
+    public $openSelect , $confirmDetele, $confirmEdit, $delete = false;
     protected $listeners = ['confirmDelete'];
     protected $rules = [
         'name' => 'required',
         'status'=> 'required',
         'image' => 'image|max:1024',
     ];
-
-
-    public function handleModal ()
-    {
-        $this->isOpen = true;
-        $this->type= "ADD";
-    }
-    
-    public function closeModal ()
-    {
-        $this->reset(['name','status','image','type']);
-        $this->isOpen = false;
-        $this->resetErrorBag();
-        $this->resetValidation();
-    }
 
     function openSelect ()
     {
@@ -51,21 +36,30 @@ class Categories extends Component
             'image'=> $ImageName,
             'status'=> $this->status,
         ]);
-        $this->closeModal();
         $this->reset();
         session()->flash('message', 'Product successfully created.');
     }
 
-
+    public function openModal()
+    {
+        $this->confirmEdit = true;
+        $this->type= 'create';
+        $this->reset(['name','status','image','description','openSelect']);
+        $this->resetErrorBag();
+        $this->resetValidation();
+    }
+    
     public function confirmCategorieEdit( $id) 
     {
         $this->confirmEdit = $id;
+        $this->type = 'update';
         $cat  =  Categorie::find($id);
         $this->name = $cat->name;
         $this->description = $cat->description;
         $this->image = $cat->image;
         $this->status = $cat->status;
-        $this->type = "UPDATE";
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 
     public function edit (Categorie $categorie)
@@ -75,6 +69,9 @@ class Categories extends Component
         $categorie->status = $this->status;
         $categorie->save();
         $this->confirmEdit = false;
+        $this->reset(['name','status','image','description','type','openSelect']);
+        $this->resetErrorBag();
+        $this->resetValidation();
     }
 
 

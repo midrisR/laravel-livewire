@@ -55,7 +55,7 @@
                         <li class="relative px-6 py-2">
                             <x-nav-link
                                 class="text-indigo-600 hover:text-indigo-800 "
-                                href="/dashboard/list-products"
+                                href="/dashboard/product"
                                 :active="request()->routeIs('list-products')">
                                 <span class="ml-4">
                                     {{ __('List Products') }}</span>

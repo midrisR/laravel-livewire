@@ -23,9 +23,24 @@ class Products extends Component
     public $isOpen =false;
     public $delete;
     public $update=false;
+    public $product;
     
     protected $listeners = ['product-created' => '$refresh' , 'search'];
+
+
+
+    function edit ($id) 
+    {
+        return redirect()->to('dashboard/product/'.$id.'');
+    }
+
+    public function view ($id)
+    {
+        return view('livewire.backend.product.product-edit',['product' => Product::find($id)]);
+    }
+
     
+
     public function render()
     {
             $prod = DB::table('Products')
@@ -34,15 +49,11 @@ class Products extends Component
             ->where('products.name', 'like', '%'.$this->search.'%')
             ->orderByDesc('created_at')
             ->paginate(5);
-            
+
         return view('livewire.backend.product.products',[
-            'products' => $prod,
+            'products'   => $prod,
             'categories' => Categorie::all(),
             'types' => Type::all()
         ])->layout('layouts.dashboard');
-    }
-
-    public function goTo (){
-     return redirect()->to('/dashboard/create-product/');
     }
 }

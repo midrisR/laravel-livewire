@@ -21,7 +21,7 @@
                 <div class="w-full flex justify-between items-center">
                     <button type="button"
                         class=" inline-flex items-center px-4 py-2 rounded bg-indigo-400 text-white focus:outline-none border-transparent focus:ring-indigo-700 focus:ring-2 "
-                        wire:click="handleModal">
+                        wire:click="openModal">
                         <x-feathericon-plus width="18" />
                         <span class="ml-2 text-sm"> Create</span>
                     </button>
@@ -132,57 +132,35 @@
         </x-slot>
     </x-jet-confirmation-modal>
 
-    {{-- MODAL EDIT --}}
+    {{-- MODAL EDIT / CREATE --}}
     <x-jet-modal wire:model="confirmEdit" maxWidth="lg">
         <x-slot name="slot">
-            <form class="w-1/2">
-                <x-input model="name" name="Name" />
-                <x-input model="description" name="Description" />
-                <x-select value="{{ $status }}" model="status"
-                    name="Status" open="{{ $openSelect }}" />
-                <x-upload name="Image" model="image" />
-
-            </form>
-        </x-slot>
-
-        <x-slot name="footer">
-            <x-jet-secondary-button wire:click="$set('confirmEdit', false)"
-                wire:loading.attr="disabled">
-                {{ __('Cencel') }}
-            </x-jet-secondary-button>
-            <x-jet-danger-button class="ml-2"
-                wire:click="edit({{ $confirmEdit }})"
-                wire:loading.attr="disabled">
-                {{ __('UPDATE') }}
-            </x-jet-danger-button>
-        </x-slot>
-    </x-jet-modal>
-
-
-
-
-
-
-
-
-
-    {{-- @if ($isOpen)
-        <x-customised-modal>
-            <x-slot name="content">
-                <form>
+            <div class="p-5">
+                <form class="w-full">
                     <x-input model="name" name="Name" />
                     <x-input model="description" name="Description" />
                     <x-select value="{{ $status }}" model="status"
                         name="Status" open="{{ $openSelect }}" />
                     <x-upload name="Image" model="image" />
-                    <div class="flex justify-end pt-2">
-                        <button type="button" wire:click.prevent="store"
-                            class="px-4 bg-indigo-500 p-2 rounded-lg text-white hover:bg-gray-100 hover:text-indigo-400 mr-2 focus:outline-none">Submit</button>
-                    </div>
                 </form>
-            </x-slot>
-        </x-customised-modal>
-    @endif --}}
+            </div>
+            <div class="px-6 py-4 bg-gray-100 text-right">
+                @if ($type === 'create')
+                    <button type="button"
+                        class="bg-indigo-500 px-4 py-2 text-sm rounded text-white focus:outline-none"
+                        wire:click="store">Create</button>
+                @else
+                    <button type="button"
+                        class="bg-indigo-500 px-4 py-2 rounded text-xs text-white focus:outline-none"
+                        wire:click="edit({{ $confirmEdit }})">UPDATE</button>
+                @endif
+                <x-jet-secondary-button wire:click="$set('confirmEdit', false)"
+                    wire:loading.attr="disabled">
+                    {{ __('Cencel') }}
+                </x-jet-secondary-button>
+            </div>
+        </x-slot>
+    </x-jet-modal>
 </div>
 
 @push('script')

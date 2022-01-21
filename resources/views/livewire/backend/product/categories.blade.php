@@ -20,7 +20,7 @@
                 class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="w-full flex justify-between items-center">
                     <button type="button"
-                        class=" inline-flex items-center px-4 py-2 rounded bg-indigo-400 text-white focus:outline-none border-transparent focus:ring-indigo-700 focus:ring-2 "
+                        class=" inline-flex items-center px-4 py-2 rounded bg-black text-white focus:outline-none border-transparent"
                         wire:click="openModal">
                         <x-feathericon-plus width="18" />
                         <span class="ml-2 text-sm"> Create</span>
@@ -142,6 +142,24 @@
                     <x-select value="{{ $status }}" model="status"
                         name="Status" open="{{ $openSelect }}" />
                     <x-upload name="Image" model="image" />
+                    @if ($image !== $image)
+                        Photo Preview:
+                        <img src="{{ $image->temporaryUrl() }}" width="200">
+                    @endif
+
+                    @if ($type === 'create')
+                        @if ($image)
+                            <div class="rounded-xl overflow-hidden">
+                                <img src="{{ $image->temporaryUrl() }}"
+                                    width="100">
+                            </div>
+                        @endif
+                    @else
+                        <div class="rounded-xl overflow-hidden">
+                            <img src="{{ asset('storage/photos/categories/' . $confirmEdit . '/' . $oldImage) }}"
+                                width="100">
+                        </div>
+                    @endif
                 </form>
             </div>
             <div class="px-6 py-4 bg-gray-100 text-right">

@@ -9,12 +9,13 @@ use App\Models\Type;
 use App\Models\Product;
 use Ramsey\Uuid\Uuid;
 use App\Models\Image;
+use App\Models\Brand;
 use Illuminate\Support\Facades\Storage;
 
 class CreateProduct extends Component
 {
     use WithFileUploads;
-    public $name, $status, $type, $categorie_id, $description, $meta_description, $meta_keywords, $imagePreview;
+    public $name, $status, $type_id,$brand_id, $categorie_id, $description, $meta_description, $meta_keywords;
     public $image = [];
     
     protected $listeners = ['product-created' => '$refresh'];
@@ -24,7 +25,8 @@ class CreateProduct extends Component
         $this->validate([
             'name' => 'required',
             'status' => 'required',
-            'type' => 'required',
+            'type_id' => 'required',
+            'brand_id' => 'required',
             'categorie_id'=> 'required',
             'description'=> 'required',
             'meta_description'=> 'required',
@@ -36,7 +38,8 @@ class CreateProduct extends Component
             'name' => $this->name,
             'status' => $this->status,
             'code' =>  Uuid::uuid4(),
-            'type' =>  $this->type,
+            'type_id' =>  $this->type_id,
+            'brand_id' =>  $this->brand_id,
             'categorie_id'=> $this->categorie_id,
             'description'=> $this->description,
             'meta_description'=> $this->meta_description,
@@ -62,7 +65,8 @@ class CreateProduct extends Component
     {
         return view('livewire.backend.product.create-product',[
             'categories' => Categorie::all(),
-            'types' => Type::all()
+            'types' => Type::all(),
+            'brands' => Brand::all()
         ])->layout('layouts.dashboard');;
     }
 }

@@ -23,11 +23,9 @@ class Products extends Component
     public $isOpen =false;
     public $delete;
     public $update=false;
-    public $product;
-    
+    public $product,$confirmDetele ;
+
     protected $listeners = ['product-created' => '$refresh' , 'search'];
-
-
 
     function edit ($id) 
     {
@@ -39,15 +37,27 @@ class Products extends Component
         return view('livewire.backend.product.product-edit',['product' => Product::find($id)]);
     }
 
-    
+    public function confirmDelete ($id)
+    {
+        $this->confirmDetele = $id;
+    }
+
+    public function destroy( Product $product) 
+    {
+        $product->delete();
+        Storage::deleteDirectory('/photos/products/'. $product->id);
+        $this->confirmDetele = false;
+        session()->flash('message', 'Item Deleted Successfully');
+    }
+
 
     public function render()
     {
             $prod = DB::table('Products')
-            ->leftJoin('types', 'products.type', '=', 'types.id')
+            ->leftJoin('types', 'products.type_id', '=', 'types.id')
             ->select('products.*', 'types.name as type_name')
             ->where('products.name', 'like', '%'.$this->search.'%')
-            ->orderByDesc('created_at')
+            ->orderByDesc('id')
             ->paginate(5);
 
         return view('livewire.backend.product.products',[

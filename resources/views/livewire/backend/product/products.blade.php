@@ -2,7 +2,7 @@
     <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div class="w-full flex justify-between items-center">
-                <a class="inline-flex items-center px-4 py-2 rounded bg-indigo-400 text-white focus:outline-none border-transparent focus:ring-indigo-700 focus:ring-2 "
+                <a class="inline-flex items-center px-4 py-2 rounded bg-black text-white focus:outline-none border-transparent focus:ring-indigo-700 focus:ring-2 "
                     href="/dashboard/product/create">
                     <x-feathericon-plus width="18" />
                     <span class="ml-2 text-sm"> Create Product</span>
@@ -88,7 +88,8 @@
                     <x-feathericon-edit width="18" />
                 </button>
                 <button
-                    class="bg-red-200 rounded w-8 h-8 text-red-700 inline-flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-red-600">
+                    class="bg-red-200 rounded w-8 h-8 text-red-700 inline-flex items-center justify-center focus:outline-none focus:ring-1 focus:ring-red-600"
+                    wire:click="confirmDelete({{ $product->id }})">
                     <x-feathericon-trash width="18" />
                 </button>
             </td>
@@ -102,4 +103,25 @@
         </div>
     </div>
 </div>
+<x-jet-confirmation-modal wire:model="confirmDetele">
+    <x-slot name="title">
+        {{ __('Delete Item') }}
+    </x-slot>
+
+    <x-slot name="content">
+        {{ __('Are you sure you want to delete Item? ') }}
+    </x-slot>
+
+    <x-slot name="footer">
+        <x-jet-secondary-button wire:click="$set('confirmDetele', false)"
+            wire:loading.attr="disabled">
+            {{ __('Cencel') }}
+        </x-jet-secondary-button>
+        <x-jet-danger-button class="ml-2"
+            wire:click="destroy({{ $confirmDetele }})"
+            wire:loading.attr="disabled">
+            {{ __('Delete') }}
+        </x-jet-danger-button>
+    </x-slot>
+</x-jet-confirmation-modal>
 </div>

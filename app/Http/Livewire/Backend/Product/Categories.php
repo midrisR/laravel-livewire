@@ -6,14 +6,16 @@ use Livewire\Component;
 use App\Models\Categorie;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class Categories extends Component
 {
     use WithPagination;
     use WithFileUploads;
-    public $search, $name, $description, $image, $status ,$catIdm, $type;
+    public $search, $name, $description, $image, $status ,$catIdm, $type, $oldImage;
     public $openSelect , $confirmDetele, $confirmEdit, $delete = false;
     protected $listeners = ['confirmDelete'];
+    
     protected $rules = [
         'name' => 'required',
         'status'=> 'required',
@@ -37,13 +39,13 @@ class Categories extends Component
             'status'=> $this->status,
         ]);
         $this->reset();
-        session()->flash('message', 'Product successfully created.');
+        session()->flash('message', 'Product successfully updated.');
     }
 
     public function openModal()
     {
+        $this->type = 'create';
         $this->confirmEdit = true;
-        $this->type= 'create';
         $this->reset(['name','status','image','description','openSelect']);
         $this->resetErrorBag();
         $this->resetValidation();
@@ -52,11 +54,10 @@ class Categories extends Component
     public function confirmCategorieEdit( $id) 
     {
         $this->confirmEdit = $id;
-        $this->type = 'update';
-        $cat  =  Categorie::find($id);
+        $cat  = Categorie::find($id);
         $this->name = $cat->name;
         $this->description = $cat->description;
-        $this->image = $cat->image;
+        $this->oldImage = $cat->image;
         $this->status = $cat->status;
         $this->resetErrorBag();
         $this->resetValidation();
@@ -64,19 +65,24 @@ class Categories extends Component
 
     public function edit (Categorie $categorie)
     {
+        // dd($this->image);
+        $ImageName =  md5( $this->image . microtime()).'.'. $this->image->extension();
+        if($this->image)
+        {
+            $categorie->image =$ImageName; 
+            Storage::delete("photos/categories/$categorie->id/$this->oldImage");
+        }
         $categorie->name = $this->name;
         $categorie->description = $this->description;
         $categorie->status = $this->status;
         $categorie->save();
+        $this->image->storeAs('photos/categories/'.$categorie->id.'/', $ImageName);
         $this->confirmEdit = false;
         $this->reset(['name','status','image','description','type','openSelect']);
         $this->resetErrorBag();
         $this->resetValidation();
     }
-
-
     
-
     public function confirmCategorieDeletion( $id) 
     {
         $this->confirmDetele = $id;
@@ -93,10 +99,9 @@ class Categories extends Component
 
     public function render()
     {
-        $cat =  Categorie::where('name','like' ,'%'.$this->search.'%');
+        $cat =  Categorie::where('name','like' ,'%'.$this->search.'%')->paginate('5');
         return view('livewire.backend.product.categories',[
             'categories' =>$cat
-            ->paginate('5')
         ])
         ->layout('layouts.dashboard');;
     }

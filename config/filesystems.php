@@ -68,6 +68,13 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('storage/photos') => storage_path('app/photos'),
+        public_path('storage/photos/products/') => storage_path('app/photos/products'),
+        public_path('storage/photos/categories/') => storage_path('app/photos/categories'),
+        public_path('storage/photos/logo') => storage_path('app/photos/logo'),
+        public_path('storage/photos/banners') => storage_path('app/photos/banners'),
+        public_path('storage/photos/brand') => storage_path('app/photos/brand'),
+        public_path('storage/photos/icons') => storage_path('app/photos/icons'),
     ],
 
 ];

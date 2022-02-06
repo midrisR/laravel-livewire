@@ -15,20 +15,27 @@ class SideCategorie extends Component
     public $currentUrl;
     public $message;
 
+ 
+    protected $listener= ['urlChanged'];
     
     public function mount()
-    {
+    { 
         $this->currentUrl = request()->getPathInfo();
     }
-    
+   
+    public function updating($name, $value)
+    {
+      
+        $this->emit('urlChanged', http_build_query([$name => $value]));
+    }
     
     public function render()
     {
-        $filter  = Type::where('name','LIKE','%pipe%')->get();
-        $sagment = request()->segment(2);
+        $filter  = Type::where('name','NOT LIKE','%pipe%')->get();
+        $sagment = request()->segment(3);
         return view('livewire.component.side-categorie',[
             'categories' => Categorie::all(),
-            'types' =>  $sagment === "Pipa" ? $filter : Type::all()
+            'types' =>  $sagment === "Pipa" ?  Type::all() : $filter 
         ])->layout('layouts.index');
     }
     

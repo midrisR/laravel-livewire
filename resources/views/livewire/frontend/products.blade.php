@@ -1,5 +1,4 @@
 @section('title', 'Products')
-
 <div class="w-full flex flex-wrap mt-4 lg:mt-10 px-10">
     <div class="w-full lg:w-1/5 py-4" id="side">
         <div class="px-5 block lg:hidden">
@@ -32,11 +31,4 @@
         </div>
     </div>
 </div>
-@push('script')
-    <script>
-        Livewire.on('SideFilter',(data) => {
-            Livewire.emit('filter',data)
-            console.log('FILTER ' + data)
-        })
-    </script>
-@endpush
+

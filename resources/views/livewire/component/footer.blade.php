@@ -1,6 +1,5 @@
 <div class="w-full bg-gray-800 px-20 py-5">
     <div class="flex flex-wrap mt-8">
-
         @foreach ($employes as $employe)
             <div class="w-full mb-6 lg:mt-0 md:w-1/2 lg:w-1/4 ">
                 <div class="footer">
@@ -31,23 +30,26 @@
                 </p>
             </div>
         </div>
-        <div class="w-full md:w-1/2 lg:w-1/4 flex mt-6 md:lg-0">
-            <div class="bg-white rounded-lg w-8 h-8 overflow-hidden p-1 mr-3">
-                <img src="{{ asset('storage/photos/icons/facebook.svg') }}"
-                    alt="" width="100">
-            </div>
-            <div class="bg-white rounded-lg w-8 h-8 overflow-hidden p-1 mr-3">
-                <img src="{{ asset('storage/photos/icons/instagram.svg') }}"
-                    alt="" width="100">
-            </div>
-            <div class="bg-white rounded-lg w-8 h-8 overflow-hidden p-1 mr-3">
-                <img src="{{ asset('storage/photos/icons/shopee.svg') }}"
-                    alt="" width="100">
-            </div>
-            <div class="bg-white rounded-lg w-8 h-8 overflow-hidden p-1 mr-3">
-                <img src="{{ asset('storage/photos/icons/tokopedia.svg') }}"
-                    alt="" width="100">
-            </div>
+        <div class="w-full md:w-1/2 lg:w-1/4 px-0 lg:px-12">
+            <h4 class="font-semibold text-white mb-5">FOLLOW ME</h4>
+           <div class="flex">
+                <div class="bg-white rounded-lg w-8 h-8 overflow-hidden p-1 mr-3">
+                        <img src="{{ asset('storage/photos/icons/facebook.svg') }}"
+                            alt="" width="100">
+                    </div>
+                    <div class="bg-white rounded-lg w-8 h-8 overflow-hidden p-1 mr-3">
+                        <img src="{{ asset('storage/photos/icons/instagram.svg') }}"
+                            alt="" width="100">
+                    </div>
+                    <div class="bg-white rounded-lg w-8 h-8 overflow-hidden p-1 mr-3">
+                        <img src="{{ asset('storage/photos/icons/shopee.svg') }}"
+                            alt="" width="100">
+                    </div>
+                    <div class="bg-white rounded-lg w-8 h-8 overflow-hidden p-1 mr-3">
+                        <img src="{{ asset('storage/photos/icons/tokopedia.svg') }}"
+                            alt="" width="100">
+                    </div>
+           </div>
         </div>
     </div>
 </div>

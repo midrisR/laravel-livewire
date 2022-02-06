@@ -11,26 +11,22 @@ class Products extends Component
 {
     use WithPagination;
     public $currentUrl;
-    public $type;
+    public $query ;
+
+    protected $queryString = ['query'];
     protected $listener = ['filter'];
 
     public function mount()
     {
         $this->currentUrl = request()->getPathInfo();
+     
     }
-    
-    public function filter (Type $type)
-    {
-        $this->type = $type;
-        $this->emit('filter');
-    }
-    
+
     public function render()
     {
-        
-        
+   
         return view('livewire.frontend.products',[
-            'products'=> Product::with('image')->orderByDesc('id')->paginate(10),
+            'products'=>Product::where('name', 'like', '%'.$this->query.'%')->with('image')->orderByDesc('id')->paginate(10),
             'categories'=> Categorie::all()
             ])->layout('layouts.index');
     }

@@ -3,7 +3,7 @@
     id='side-filter'>
 <div class="filter-category">
         <div class="flex px-10 py-4">
-            <h5 class="text-sm font-black text-blue-500 text-xl mb-2">
+            <h5 class="font-black text-blue-500 text-xl mb-2">
                 List Categories
             </h5>
         </div>
@@ -20,13 +20,13 @@
     </div>
     <div class="type mt-0 lg:mt-8 px-10">
         <div class="flex py-4">
-            <h5 class="text-sm font-black text-blue-500 text-xl mb-2">
+            <h5 class="font-black text-blue-500 text-xl mb-2">
                 Type
             </h5>
         </div>
 
         @foreach ($types as $type)
-            <div class="flex items-center mb-5 cursor-pointer list" wire:click="$emit('SideFilter' , '{{$type->name}}')">
+            <div class="flex items-center mb-5 cursor-pointer list" wire:click="$emit('urlChanged', '{{ $type->name }}')">
                 <div class="w-5 h-5 border border-gray-400 border-opcaity-10 rounded checkbox"
                     id="{{ str_replace(' ', '-', $type->name) }}" ></div>
                 <span
@@ -54,28 +54,22 @@
 
 @push('script')
     <script>
-        const links = document.querySelectorAll(".checkbox");
-        for (let i = 0; i < links.length; i++) {
-            const link = links[i];
-            link.addEventListener('click', e => {
-                Livewire.on('sort', () => {
-                    link.classList.toggle("checked")
-                    for (let j = 0; j < links.length; ++j) {
-                        if (links[j] !== e.target) {
-                            links[j].classList.remove("checked")
-                        }
-                    }
-                })
-
-            })
-        }
+            const links = document.querySelectorAll(".checkbox");
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            const { query } = Object.fromEntries(urlSearchParams.entries());
+            for (let i = 0; i < links.length; i++) {
+                const link = links[i].id.split('-').join(' ');
+                if(link === query)  links[i].classList.add("checked")
+            }
 
         let x = document.getElementsByClassName('list-categorie')[0]
         const lastURL = window.location.pathname
         const GetLastURL = lastURL.split('/').pop();
         const element = document.getElementById(GetLastURL)
-        if (GetLastURL !== 'products') {
-            x.scrollTop += element.offsetTop - 10
+        const parent =document.querySelectorAll('.list-categorie')[0].offsetHeight
+        const options = ['products', 'search'];
+        if (options.indexOf(!GetLastURL) > -1) {
+            x.scrollTop.toFixed(0) += element.offsetTop - parent
         }
 
         const button = document.getElementById("btn-filter")
@@ -99,5 +93,11 @@
             el.appendChild(n)
             document.getElementById("side").appendChild(el)
         })
+
+        document.addEventListener('DOMContentLoaded', function () {
+            window.livewire.on('urlChanged', param => {
+               window.location.href = `${document.location.pathname}?query=${param}`
+            });
+        });
     </script>
 @endpush

@@ -1,5 +1,5 @@
-const mix = require('laravel-mix');
-
+const mix = require("laravel-mix");
+require("laravel-mix-purgecss");
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -11,14 +11,17 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        require('postcss-import'),
-        require('tailwindcss'),
-    ]);
+mix.js("resources/js/app.js", "public/js")
+    .postCss("resources/css/app.css", "public/css", [
+        require("postcss-import"),
+        require("tailwindcss"),
+    ])
+    .purgeCss();
 
-
-    mix.copy('node_modules/feather-icons/dist/icons', 'public/vendor/feather-icons');
+mix.copy(
+    "node_modules/feather-icons/dist/icons",
+    "public/vendor/feather-icons"
+);
 
 if (mix.inProduction()) {
     mix.version();

@@ -5,7 +5,7 @@
                 <span class="text-white">Filter</span>
             </button>
         </div>
-        <x-side-categorie />
+        <livewire:component.side-categorie />
     </div>
     <div class="w-full lg:w-4/5 flex flex-wrap">
         @foreach ($products as $product)

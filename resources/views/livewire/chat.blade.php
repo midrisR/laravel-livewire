@@ -30,8 +30,8 @@
     </div>
     @if ($success || Cookie::get('visitor'))
     <div class="w-full px-3 py-2">
-        <textarea class="w-full rounded-lg ring-1 focus:outline-none px-3 py-2" wire:model.defer="message" cols="5"
-            rows="1"></textarea>
+        <textarea class="w-full rounded-lg ring-1 focus:outline-none px-3 py-2 @error('message')ring-red-700 @enderror"
+            wire:model.defer="message" cols="5" rows="2"></textarea>
         <button wire:click="send" class="w-full bg-blue-500 px-4 py-2 rounded shadow text-white">Send</button>
     </div>
     @endif

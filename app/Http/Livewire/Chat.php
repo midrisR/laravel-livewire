@@ -36,6 +36,10 @@ class Chat extends Component
 
     public function send ()
     {
+        $this->validate([
+            'message' => 'required'
+        ]);
+ 
         Message::create([
             'chat' => $this->message,
             'to_id' =>1,

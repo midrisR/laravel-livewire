@@ -95,8 +95,6 @@ class Brand extends Component
         $brand =  Merek::where('name','like' ,'%'.$this->search.'%')->paginate(5);
         return view('livewire.backend.product.brand',[
             'brands' =>$brand
-            ])
-       
-        ->layout('layouts.dashboard');;
+            ])->layout('layouts.dashboard');
     }
 }

@@ -13,6 +13,7 @@ use App\Http\Livewire\Backend\Company\Banner;
 use App\Http\Livewire\Backend\Company\About;
 use App\Http\Livewire\Backend\User\Employe;
 use App\Http\Livewire\Backend\User\Role;
+use App\Http\Livewire\Backend\User\Chats;
 use App\Http\Livewire\Dashboard;
 use App\Http\Controllers\CKEditorController;
 // frontend
@@ -21,10 +22,12 @@ use App\Http\Livewire\Frontend\Products as fProducts;
 use App\Http\Livewire\Frontend\CategoryById;
 use App\Http\Livewire\Frontend\ProductDetail;
 use App\Http\Livewire\Frontend\Search;
+use App\Http\Livewire\Chat;
 
 
 
 Route::get('/', Home::class)->name('Home');
+Route::get('/chat', Chat::class)->name('Chat');
 Route::get('/about', About::class)->name('About');
 Route::get('/products', fProducts::class)->name('Products');
 Route::get('/products/search', Search::class)->name('Search');
@@ -44,6 +47,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/product/{id}',E
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/categories/', Categories::class)->name('list-categories');
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/type',Types::class)->name('list-type');
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/brand',Brand::class)->name('create-brand');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/chats',Chats::class)->name('chats');
 
 // company route
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard/banner',Banner::class)->name('create-banner');

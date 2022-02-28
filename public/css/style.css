@@ -6,3 +6,7 @@ body.modal-active {
     overflow-x: hidden;
     overflow-y: visible !important;
 }
+
+.active {
+    transform:translateX(100%);
+}

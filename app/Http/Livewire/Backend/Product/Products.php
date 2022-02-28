@@ -53,7 +53,7 @@ class Products extends Component
 
     public function render()
     {
-            $prod = DB::table('Products')
+            $prod = DB::table('products')
             ->leftJoin('types', 'products.type_id', '=', 'types.id')
             ->select('products.*', 'types.name as type_name')
             ->where('products.name', 'like', '%'.$this->search.'%')

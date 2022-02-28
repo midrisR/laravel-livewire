@@ -26,7 +26,7 @@ class Products extends Component
     {
    
         return view('livewire.frontend.products',[
-            'products'=>Product::where('name', 'like', '%'.$this->query.'%')->with('image')->orderByDesc('id')->paginate(10),
+            'products'=>Product::where('name', 'like', '%'.$this->query.'%')->with('image')->orderByDesc('id')->paginate(20),
             'categories'=> Categorie::all()
             ])->layout('layouts.index');
     }

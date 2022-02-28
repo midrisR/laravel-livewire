@@ -31,11 +31,9 @@ class SideCategorie extends Component
     
     public function render()
     {
-        $filter  = Type::where('name','NOT LIKE','%pipe%')->get();
-        $sagment = request()->segment(3);
         return view('livewire.component.side-categorie',[
             'categories' => Categorie::all(),
-            'types' =>  $sagment === "Pipa" ?  Type::all() : $filter 
+            'types' => Type::where('name','NOT LIKE','%pipe%')->get()
         ])->layout('layouts.index');
     }
     

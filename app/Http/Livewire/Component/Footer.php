@@ -7,6 +7,8 @@ use App\Models\Employe;
 
 class Footer extends Component
 {
+    public $show = false;
+    
     public function render()
     {
         return view('livewire.component.footer', [

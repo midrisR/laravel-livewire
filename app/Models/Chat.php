@@ -12,6 +12,6 @@ class Chat extends Model
 
     public function visitor()
     {
-        return $this->belongsTo(Visitor::class);
+        return $this->hasOne(Visitor::class,'id');
     }
 }

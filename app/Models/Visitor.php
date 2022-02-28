@@ -17,7 +17,7 @@ class Visitor extends Model
     ];
     public function chat()
     {
-        return $this->hasMany(Chat::class);
+        return $this->hasMany(Chat::class,'visitor_id');
     }
     protected $primaryKey = ['id'];
     protected $keyType = 'string';

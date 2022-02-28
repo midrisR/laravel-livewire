@@ -2,10 +2,11 @@
 
 namespace App\Http\Livewire\Backend\User;
 
-use Livewire\Component;
 use App\Models\Visitor;
+use Livewire\Component;
 use App\Models\Chat as Message;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class Chats extends Component
 {
@@ -25,6 +26,13 @@ class Chats extends Component
 
     public function render()
     {
+        // $data = Message::join('visitors', 'chats.to_id', '=', 'visitors.id')
+        // ->where('to_id', '!=', 1)
+        // ->orWhere('visitor_id', '!=', 1)
+        // ->get();
+        // $collection = collect($data);
+        // $unique = $collection->unique('visitor_id');
+        // dd($unique);
         return view('livewire.backend.user.chats',[
             'visitors' => Visitor::all()
         ])
@@ -53,6 +61,9 @@ class Chats extends Component
       if(!$data->isEmpty()){
         $this->chats = $data;
       }
- 
+    }
+    public function endChat ()
+    {
+      Cookie::queue(Cookie::forget('visitor'));
     }
 }

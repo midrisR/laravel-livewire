@@ -8,22 +8,30 @@
         <livewire:component.side-categorie />
     </div>
     <div class="w-full lg:w-4/5 flex flex-wrap">
-        @foreach ($products as $product)
-            <div class="w-full flex flex-col md:w-1/2 lg:w-1/4 p-4 mb-6">
-                <div
-                    class="bg-white rounded-lg shadow-lg overflow-hidden flex-1 flex flex-col">
-                    <div class="bg-cover h-48"
-                        style="background-image: url('{{ asset('storage/photos/products/' . $product->id . '/' . $product->image[0]->name) }}');">
-                    </div>
-                    <div class="p-4 flex-1 flex flex-col">
-                        <h3 class="mb-4 text-sm flex-1">{{ $product->name }}
-                        </h3>
-                        <a href="/product-detail/{{ $product->id }}/{{ Str::of($product->name)->replace(' ', '-') }}"
-                            class="border-t border-blue-light pt-2 text-xs text-blue-500 hover:text-red uppercase no-underline tracking-wide">view</a>
-                    </div>
-                </div>
+        @if ($products->isEmpty())
+            <div class="w-full px-8 py-12 mt-24">
+                <p class="text-6xl text-center text-orange-400 font-bold">
+                    Sorry, the product is not available
+                </p>
             </div>
-        @endforeach
+        @else
+            @foreach ($products as $product)
+                <div class="w-full flex flex-col lg:w-1/4 p-5">
+                    <a href="/product-detail/{{ $product->id }}/{{ Str::of($product->name)->replace(' ', '-') }}"
+                        class="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden h-72">
+                        <div class="relative pb-48 overflow-hidden">
+                            <img class="absolute inset-0 h-full w-full object-contain lg:object-cover p-3"
+                                src="{{ asset('storage/photos/products/' . $product->id . '/' . $product->image[0]->name) }}"
+                                alt="{{ $product->name }}">
+                        </div>
+                        <div class="p-4 flex-1">
+                            <span
+                                class="mb-4 text-sm text-gray-700 uppercase">{{ $product->name }}</span>
+                        </div>
+                    </a>
+                </div>
+            @endforeach
+        @endif
         <div class="w-full mx-auto mt-10 rounded-lg">
             {{ $products->links('livewire.pagination', ['is_livewire' => true]) }}
         </div>

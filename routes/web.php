@@ -23,13 +23,16 @@ use App\Http\Livewire\Frontend\CategoryById;
 use App\Http\Livewire\Frontend\ProductDetail;
 use App\Http\Livewire\Frontend\Search;
 use App\Http\Livewire\Chat;
+use App\Http\Livewire\RegisterChat;
 
 
 
 Route::get('/', Home::class)->name('Home');
+Route::get('/images', RegisterChat::class)->name('images');
+Route::middleware('cache.headers:public;max_age=31536000;etag')->get('/storage');
 Route::get('/chat', Chat::class)->name('Chat');
 Route::get('/about', About::class)->name('About');
-Route::get('/products', fProducts::class)->name('Products');
+Route::middleware('cache.headers:public;max_age=31536000;etag')->get('/products', fProducts::class)->name('Products');
 Route::get('/products/search', Search::class)->name('Search');
 Route::get('/products/{id}/{name}', CategoryById::class)->name('detail-category');
 Route::get('/product-detail/{id}/{name}', ProductDetail::class)->name('product-detail');

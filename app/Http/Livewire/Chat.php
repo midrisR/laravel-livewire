@@ -13,6 +13,7 @@ class Chat extends Component
 
     public $message;
     public $name;
+    public $open = true;
     public $email;
     public $success;
     public $from_id;

@@ -1,11 +1,12 @@
 <div
     class="absolute inset-y-0 right-0 hidden lg:flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 text-white">
     {{-- search --}}
-    <div class="pt-2 relative mx-auto text-gray-600">
+    <div class="relative mx-auto text-gray-600">
         <input
             class="bg-white h-10 px-5 pr-16 rounded-full text-sm focus:outline-none focus:shadow-none focus:border-transparent"
-            type="text" name="search" placeholder="Search" wire:model="query" >
-        <button wire:click="search" class="absolute right-0 top-0 mt-5 mr-4"
+            type="text" name="search" placeholder="Search" wire:model="query">
+        <button wire:click="search"
+            class="absolute right-0 top-0 h-full mr-4 flex items-center"
             id="cari">
             <svg class="text-gray-600 h-4 w-4 fill-current"
                 xmlns="http://www.w3.org/2000/svg"

@@ -11,11 +11,25 @@ class Search extends Component
     
     use WithPagination;
     public $q;
-    protected $queryString = ['q'];
+    public $type;
+    
+    protected $listeners = ['sort' => 'filter'];
+    protected $queryString = [
+        'q' => ['except' => '', 'as' => 'q'],
+        'type' => ['except' => '', 'as' => 'type'],
+        'page' => ['except' => 1, 'as' => 'p'],
+    ]; 
 
+    public function filter ($query)
+    {
+        $this->type = $query;
+    }
+    
     public function render()
     {
-        $products = Product::where('name', 'like', '%'.$this->q.'%')->paginate(10);
+        $products = Product::where('name', 'like', '%'.$this->q.'%')
+        ->where('name', 'like', '%'.$this->type.'%')
+        ->paginate(20);
         return view('livewire.frontend.search',[
             'products' => $products
         ])->layout('layouts.index');

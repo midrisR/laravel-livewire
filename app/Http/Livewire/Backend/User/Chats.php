@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Cookie;
 class Chats extends Component
 {
 
-    public $open = false;
+    public $show = false;
     public $chats = [];
     public $message;
     public $from_id;
@@ -26,13 +26,15 @@ class Chats extends Component
 
     public function render()
     {
-        // $data = Message::join('visitors', 'chats.to_id', '=', 'visitors.id')
-        // ->where('to_id', '!=', 1)
-        // ->orWhere('visitor_id', '!=', 1)
-        // ->get();
-        // $collection = collect($data);
-        // $unique = $collection->unique('visitor_id');
-        // dd($unique);
+        $data = Message::join('visitors', 'chats.to_id', '=', 'visitors.id')
+        ->where('to_id', '!=', 1)
+        ->orWhere('visitor_id', '!=', 1)
+        // ->select('chats.*','chats.created_at as frist_chat_time','visitors.id as visitor_id','visitors.name')
+            ->get();
+        $collection = collect($data);
+        $unique = $collection->unique('to_id');;
+    
+
         return view('livewire.backend.user.chats',[
             'visitors' => Visitor::all()
         ])
@@ -42,7 +44,7 @@ class Chats extends Component
     public function send ()
     {
         $this->validate([
-            'chat' => 'require'
+            'message' => 'required'
         ]);
  
         Message::create([
@@ -53,7 +55,6 @@ class Chats extends Component
         $this->message = null;
     }
 
-
     public function openChat($vId)
     {
         $this->from_id = $vId;
@@ -61,10 +62,11 @@ class Chats extends Component
         $data = Message::where('visitor_id',$vId)
        ->orWhere('to_id',$vId)
        ->get();
-      if(!$data->isEmpty()){
+      if(!$data->isEmpty()) {
         $this->chats = $data;
       }
     }
+
     public function endChat ()
     {
       Cookie::queue(Cookie::forget('visitor'));

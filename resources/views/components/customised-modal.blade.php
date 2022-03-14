@@ -31,6 +31,7 @@
                     </svg>
                 </div>
             </div>
+            <h1>hello</h1>
             {{ $content }}
         </div>
     </div>

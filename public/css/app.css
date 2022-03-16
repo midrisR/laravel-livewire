@@ -463,6 +463,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .visible {
   visibility: visible;
 }
+.invisible {
+  visibility: hidden;
+}
 .fixed {
   position: fixed;
 }
@@ -747,6 +750,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .w-5 {
   width: 1.25rem;
 }
+.w-16 {
+  width: 4rem;
+}
 .w-fit {
   width: -webkit-fit-content;
   width: -moz-fit-content;
@@ -767,11 +773,8 @@ Ensure the default browser behavior of the `hidden` attribute.
 .w-3\/5 {
   width: 60%;
 }
-.w-2\/5 {
-  width: 40%;
-}
-.w-16 {
-  width: 4rem;
+.w-2\/6 {
+  width: 33.333333%;
 }
 .w-0 {
   width: 0px;
@@ -784,15 +787,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .w-10 {
   width: 2.5rem;
-}
-.w-1\/5 {
-  width: 20%;
-}
-.w-2\/6 {
-  width: 33.333333%;
-}
-.w-3\/6 {
-  width: 50%;
 }
 .min-w-full {
   min-width: 100%;
@@ -1120,6 +1114,26 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-bg-opacity: 1;
   background-color: rgb(238 242 255 / var(--tw-bg-opacity));
 }
+.bg-slate-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(226 232 240 / var(--tw-bg-opacity));
+}
+.bg-slate-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(248 250 252 / var(--tw-bg-opacity));
+}
+.bg-sky-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(224 242 254 / var(--tw-bg-opacity));
+}
+.bg-slate-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(203 213 225 / var(--tw-bg-opacity));
+}
+.bg-slate-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(241 245 249 / var(--tw-bg-opacity));
+}
 .bg-opacity-30 {
   --tw-bg-opacity: 0.3;
 }
@@ -1438,9 +1452,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-text-opacity: 1;
   color: rgb(59 130 246 / var(--tw-text-opacity));
 }
-.text-indigo-500 {
+.text-gray-700 {
   --tw-text-opacity: 1;
-  color: rgb(99 102 241 / var(--tw-text-opacity));
+  color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 .text-green-500 {
   --tw-text-opacity: 1;
@@ -1449,10 +1463,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-gray-100 {
   --tw-text-opacity: 1;
   color: rgb(243 244 246 / var(--tw-text-opacity));
-}
-.text-gray-700 {
-  --tw-text-opacity: 1;
-  color: rgb(55 65 81 / var(--tw-text-opacity));
 }
 .text-orange-400 {
   --tw-text-opacity: 1;
@@ -1466,10 +1476,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-text-opacity: 1;
   color: rgb(185 28 28 / var(--tw-text-opacity));
 }
-.text-red-300 {
-  --tw-text-opacity: 1;
-  color: rgb(252 165 165 / var(--tw-text-opacity));
-}
 .text-indigo-600 {
   --tw-text-opacity: 1;
   color: rgb(79 70 229 / var(--tw-text-opacity));
@@ -1481,6 +1487,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-green-400 {
   --tw-text-opacity: 1;
   color: rgb(74 222 128 / var(--tw-text-opacity));
+}
+.text-indigo-500 {
+  --tw-text-opacity: 1;
+  color: rgb(99 102 241 / var(--tw-text-opacity));
 }
 .text-opacity-90 {
   --tw-text-opacity: 0.9;
@@ -1590,6 +1600,20 @@ Ensure the default browser behavior of the `hidden` attribute.
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
+.transition-transform {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.delay-150 {
+  transition-delay: 150ms;
+}
+.delay-500 {
+  transition-delay: 500ms;
+}
+.delay-200 {
+  transition-delay: 200ms;
+}
 .duration-500 {
   transition-duration: 500ms;
 }
@@ -1601,9 +1625,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 .duration-75 {
   transition-duration: 75ms;
-}
-.duration-150 {
-  transition-duration: 150ms;
 }
 .ease-out {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);

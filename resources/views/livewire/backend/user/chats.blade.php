@@ -1,6 +1,6 @@
 <div class="w-full flex flex-wrap">
-    <div class="w-3/5">
-        <table class="min-w-full divide-y divide-gray-200 mt-4">
+    <div class="w-3/5 rounded-xl">
+        <table class="min-w-full divide-y divide-gray-200 shadow-xl">
             <thead class="bg-gray-50">
                 <tr>
                     <th
@@ -45,8 +45,8 @@
                                 @endif
                             </div>
                         </td>
-                        <td class="py-4 flex justify-end relative">
-                            <x-jet-dropdown width="48">
+                        <td class="py-4 flex justify-center relative">
+                            <x-jet-dropdown width="48" align="left">
                                 <x-slot name="trigger">
                                     <svg xmlns="http://www.w3.org/2000/svg"
                                         id="action"
@@ -83,7 +83,7 @@
     <div class="w-2/6 px-4">
         @if ($chats)
             <div
-                class="bg-white rounded-xl shadow-lg lg mt-4 py-8 px-12 relative">
+                class="bg-white rounded-xl shadow-lg lg mt-4 py-8 px-8 relative">
                 <div class=" h-64 overflow-auto" wire:poll="getChats">
                     @foreach ($chats as $chat)
                         <div
@@ -96,8 +96,7 @@
                 </div>
                 @if ($from_id === Cookie::get('visitor'))
                     <div class="w-full px-3 py-2">
-                        <textarea
-                            class="w-full rounded-lg ring-1 focus:outline-none px-3 py-2"
+                        <textarea class="w-full rounded-lg ring-1 focus:outline-none px-3 py-2"
                             wire:model.defer="message" cols="5" rows="3">
                         </textarea>
                         <button
